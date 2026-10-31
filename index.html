@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İyi ki doğdun!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,600;1,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================== AYARLAR İÇİN AŞAĞIDAKİ <script> İÇİNDEKİ CONFIG'E BAK ================== */
+:root{
+  --cream:#fbf5ef; --wine:#8e1b3a; --wine-d:#6a1029; --rose:#c43c5c; --pink:#f3c6d0; --ink:#5a1428;
+  --gold:#e0b04f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;overflow-x:hidden}
+body{min-height:100vh;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ---------- arka plan süsleri ---------- */
+#decor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.balloon{position:absolute;bottom:-140px;animation:rise linear infinite;opacity:.85}
+@keyframes rise{0%{transform:translateY(0) translateX(0) rotate(-4deg)}50%{transform:translateY(-60vh) translateX(14px) rotate(4deg)}100%{transform:translateY(-125vh) translateX(-8px) rotate(-3deg)}}
+.heart{position:absolute;animation:bob 5s ease-in-out infinite;color:var(--rose);opacity:.8}
+@keyframes bob{50%{transform:translateY(-10px) scale(1.08)}}
+
+main{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:36px 18px 60px;text-align:center}
+
+/* ---------- başlık ---------- */
+.pill{display:inline-block;padding:6px 14px;border-radius:99px;background:#fff;border:1.5px solid var(--pink);font-weight:700;font-size:.82rem;letter-spacing:.06em;color:var(--rose);text-transform:uppercase}
+h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:clamp(2.1rem,9vw,3rem);line-height:1.1;margin:16px 0 4px;color:var(--wine)}
+h1 .name{display:block;font-style:normal;font-weight:900;font-size:1.35em;background:linear-gradient(135deg,var(--wine),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-family:'Playfair Display',serif;font-style:italic;color:var(--rose);font-size:1.05rem;margin-top:6px}
+
+.age{position:relative;margin:22px auto 6px;width:fit-content}
+.age span{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(7rem,38vw,10rem);line-height:.9;
+  background:linear-gradient(160deg,#c94b6b 0%,var(--wine) 55%,var(--wine-d) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(3px 5px 0 rgba(106,16,41,.18));display:inline-block;animation:pop 3s ease-in-out infinite}
+@keyframes pop{50%{transform:scale(1.04) rotate(-1.5deg)}}
+
+/* ---------- geri sayım ---------- */
+.card{background:#fff;border-radius:22px;padding:18px 14px 16px;box-shadow:0 10px 30px -12px rgba(142,27,58,.35);border:1.5px solid #f6dde3;margin:22px 0}
+.card h2{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:1.1rem;color:var(--wine);margin-bottom:12px}
+.cd{display:flex;justify-content:center;gap:10px}
+.cd div{min-width:64px;padding:10px 4px;border-radius:14px;background:linear-gradient(160deg,var(--wine),var(--rose));color:#fff}
+.cd b{display:block;font-family:'Playfair Display',serif;font-size:1.8rem;line-height:1}
+.cd small{font-size:.72rem;opacity:.9;letter-spacing:.05em}
+.note{font-size:.85rem;margin-top:12px;opacity:.8}
+.opened{font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem;color:var(--wine)}
+
+/* ---------- pasta ---------- */
+.cake-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.35rem;color:var(--wine);margin:26px 0 4px}
+.count{font-size:.9rem;opacity:.75;margin-bottom:30px;min-height:1.2em}
+.cake{position:relative;width:min(100%,430px);margin:0 auto}
+.candles{display:flex;flex-wrap:wrap-reverse;justify-content:center;align-items:flex-start;align-content:flex-start;gap:4px 12px;
+  width:72%;margin:0 auto;min-height:74px;padding:0 6px;position:relative;z-index:0}
+.empty{font-style:italic;opacity:.6;font-size:.9rem;align-self:center;padding:18px 0}
+.candle{position:relative;width:14px;height:48px;margin-bottom:-10px;border-radius:4px 4px 2px 2px;
+  background:repeating-linear-gradient(135deg,var(--c) 0 6px,rgba(255,255,255,.85) 6px 9px);
+  box-shadow:inset -3px 0 0 rgba(0,0,0,.12);transition:transform .15s;animation:plant .5s cubic-bezier(.3,1.6,.5,1) both}
+.candle:active{transform:scale(1.15)}
+.candle.mine{box-shadow:inset -3px 0 0 rgba(0,0,0,.12),0 0 0 2px #fff,0 0 10px 2px rgba(224,176,79,.9)}
+.candle::before{content:"";position:absolute;left:50%;top:-6px;width:1.5px;height:7px;background:#3a2a2a;transform:translateX(-50%)}
+.flame{position:absolute;left:50%;top:-22px;width:11px;height:17px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 70%,#fff7c2 0 25%,#ffc93c 45%,#ff7a2f 80%,transparent 82%);
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flick .18s ease-in-out infinite alternate;filter:drop-shadow(0 0 6px #ffb347)}
+@keyframes flick{to{transform:translateX(-50%) scale(1.06,.94) rotate(3deg)}}
+@keyframes plant{from{transform:translateY(-40px);opacity:0}}
+.cake.many .candle{width:10px;height:36px}
+.cake.many .candles{gap:2px 8px}
+.cake.many .flame{width:9px;height:13px;top:-17px}
+
+.tier{position:relative;margin:0 auto;border-radius:16px 16px 8px 8px}
+.tier.top{width:72%;height:64px;background:var(--wine);z-index:1}
+.tier.bot{width:100%;height:92px;background:linear-gradient(#a8234a,var(--wine));margin-top:-2px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 10px 14px}
+.tier::before{content:"";position:absolute;left:-2px;right:-2px;top:-8px;height:24px;background:#fff;border-radius:14px 14px 0 0;
+  -webkit-mask:radial-gradient(circle at 10px 16px,#000 9px,transparent 10px) 0 0/22px 30px repeat-x,linear-gradient(#000 0 14px,transparent 14px);
+          mask:radial-gradient(circle at 10px 16px,#000 9px,transparent 10px) 0 0/22px 30px repeat-x,linear-gradient(#000 0 14px,transparent 14px)}
+.dot{width:14px;height:14px;border-radius:50%;background:#fff;opacity:.95}
+.plate{width:108%;margin-left:-4%;height:14px;border-radius:0 0 60px 60px;background:var(--pink)}
+
+.btn{margin-top:26px;padding:15px 38px;border-radius:99px;background:linear-gradient(135deg,var(--wine),#b81e3a);color:#fff;
+  font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;box-shadow:0 10px 24px -8px rgba(142,27,58,.6);transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.hint{font-family:'Playfair Display',serif;font-style:italic;color:var(--wine);margin-top:14px;font-size:1rem;line-height:1.4}
+footer{margin-top:40px;font-size:.85rem;opacity:.6}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:20;display:none;align-items:flex-end;justify-content:center;background:rgba(60,10,25,.45);backdrop-filter:blur(3px)}
+.modal.open{display:flex}
+.sheet{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:var(--cream);border-radius:26px 26px 0 0;padding:22px 20px 28px;text-align:left;animation:up .3s ease-out}
+@media(min-width:600px){.modal{align-items:center}.sheet{border-radius:26px}}
+@keyframes up{from{transform:translateY(60px);opacity:0}}
+.sheet h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--wine);margin-bottom:14px;text-align:center}
+label{display:block;font-weight:700;font-size:.9rem;margin:14px 0 6px}
+input[type=text],textarea{width:100%;padding:12px 14px;border-radius:14px;border:1.5px solid #ecc9d2;background:#fff;font:inherit;color:var(--ink);font-size:16px}
+input:focus,textarea:focus{outline:none;border-color:var(--rose)}
+textarea{min-height:120px;resize:vertical}
+.chars{text-align:right;font-size:.78rem;opacity:.6;margin-top:4px}
+.colors{display:flex;gap:10px;flex-wrap:wrap}
+.colors button{width:36px;height:36px;border-radius:50%;background:var(--c);border:3px solid #fff;box-shadow:0 0 0 1.5px #e5c3cc}
+.colors button.sel{box-shadow:0 0 0 3px var(--wine)}
+.photo-btn{display:inline-block;padding:10px 16px;border-radius:12px;border:1.5px dashed var(--rose);color:var(--rose);font-weight:700}
+#preview{display:none;margin-top:10px;max-width:100%;max-height:180px;border-radius:12px}
+.row{display:flex;gap:10px;margin-top:22px}
+.row button{flex:1;padding:13px;border-radius:14px;font-weight:700}
+.ghost{border:1.5px solid #ddb8c2 !important}
+.primary{background:var(--wine);color:#fff}
+.primary:disabled{opacity:.6}
+.msg-from{font-family:'Playfair Display',serif;font-weight:700;color:var(--rose);text-align:center;margin-top:12px}
+.msg-text{white-space:pre-wrap;word-wrap:break-word;line-height:1.55;font-size:1.02rem;background:#fff;border-radius:16px;padding:16px;border:1.5px solid #f2d6dd}
+.msg-img{width:100%;border-radius:16px;margin-bottom:12px}
+.locked{text-align:center;padding:10px 0 4px}
+.locked .big{font-size:3rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--wine);color:#fff;padding:12px 20px;border-radius:99px;z-index:40;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+</style>
+</head>
+<body>
+<div id="decor"></div>
+<canvas id="confetti"></canvas>
+
+<main>
+  <span class="pill" id="datePill">31 Ekim</span>
+  <h1>İyi ki doğdun<span class="name" id="nameEl">…</span></h1>
+  <p class="sub">Pastasına bir mum dik, mesajını bırak 🌸</p>
+
+  <div class="age"><span id="ageEl">22</span></div>
+
+  <section class="card" id="cdCard">
+    <h2>Mesajların açılmasına</h2>
+    <div class="cd">
+      <div><b id="d">0</b><small>gün</small></div>
+      <div><b id="h">00</b><small>saat</small></div>
+      <div><b id="m">00</b><small>dakika</small></div>
+      <div><b id="s">00</b><small>saniye</small></div>
+    </div>
+    <p class="note">Mumunu şimdiden dikebilirsin, mesajlar o an açılacak ✨</p>
+  </section>
+
+  <h2 class="cake-title" id="cakeTitle">İlk mumu sen dik</h2>
+  <p class="count" id="countEl"></p>
+  <div class="cake" id="cake">
+    <div class="candles" id="candles"><span class="empty">Mumlar yükleniyor…</span></div>
+    <div class="tier top"></div>
+    <div class="tier bot" id="dots"></div>
+    <div class="plate"></div>
+  </div>
+
+  <button class="btn" id="openForm">🕯️ Mum dik</button>
+  <p class="hint">Mumlara dokununca mesajlar açılır.</p>
+
+  <footer>sevgiyle yapıldı ❤️</footer>
+</main>
+
+<!-- mum dikme formu -->
+<div class="modal" id="formModal">
+  <div class="sheet">
+    <h3>Mumunu dik 🕯️</h3>
+    <label for="fName">Adın</label>
+    <input type="text" id="fName" maxlength="40" placeholder="Adın" autocomplete="off">
+    <label for="fMsg">Mesajın</label>
+    <textarea id="fMsg" maxlength="500" placeholder="İyi ki doğdun…"></textarea>
+    <div class="chars"><span id="chars">0</span>/500</div>
+    <label>Mumunun rengi</label>
+    <div class="colors" id="colors"></div>
+    <label>Fotoğraf ekle (isteğe bağlı)</label>
+    <label class="photo-btn" for="fPhoto" style="margin:0">📷 Fotoğraf seç</label>
+    <input type="file" id="fPhoto" accept="image/*" hidden>
+    <img id="preview" alt="">
+    <div class="row">
+      <button class="ghost" data-close>Vazgeç</button>
+      <button class="primary" id="submit">Mumu dik</button>
+    </div>
+  </div>
+</div>
+
+<!-- mesaj okuma -->
+<div class="modal" id="readModal">
+  <div class="sheet" id="readBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   AYARLAR — sadece burayı değiştirmen yeterli
+   ===================================================================== */
+const CONFIG = {
+  name: "Ezgi",                              // doğum günü olan kişi
+  age: 22,                                   // büyük rakam
+  dateLabel: "31 Ekim",                      // üstteki küçük etiket
+  unlockAt: "2026-10-31T19:00:00+03:00",     // mesajların açılacağı an (Türkiye saati)
+
+  // Supabase (ortak mesaj kaydı için). Boş bırakırsan sadece kendi tarayıcında çalışır (test modu).
+  supabaseUrl: "",                           // örn: "https://abcdxyz.supabase.co"
+  supabaseKey: ""                            // Project Settings > API > anon / publishable key
+};
+/* ===================================================================== */
+
+const COLORS = ["#8e1b3a","#e8829c","#e0b04f","#a48ad6","#6fa8dc","#6dbf92","#f08a4b"];
+const REMOTE = !!(CONFIG.supabaseUrl && CONFIG.supabaseKey);
+const PREVIEW = new URLSearchParams(location.search).has("preview"); // ?preview ile kilidi aç (test)
+const unlockTime = new Date(CONFIG.unlockAt).getTime();
+const $ = id => document.getElementById(id);
+
+let candles = [];
+let unlocked = PREVIEW || Date.now() >= unlockTime;
+let selColor = COLORS[0];
+let photoData = null;
+let mine = JSON.parse(localStorage.getItem("myCandles") || "[]");
+
+/* ---------- başlık ---------- */
+$("nameEl").textContent = CONFIG.name;
+$("ageEl").textContent = CONFIG.age;
+$("datePill").textContent = CONFIG.dateLabel;
+document.title = `İyi ki doğdun ${CONFIG.name}!`;
+for (let i = 0; i < 9; i++) { const d = document.createElement("span"); d.className = "dot"; $("dots").appendChild(d); }
+
+/* ---------- veri katmanı ---------- */
+function headers(extra = {}) {
+  const h = { apikey: CONFIG.supabaseKey, "Content-Type": "application/json", ...extra };
+  if (CONFIG.supabaseKey.startsWith("eyJ")) h.Authorization = "Bearer " + CONFIG.supabaseKey; // eski anon key (JWT)
+  return h;
+}
+async function fetchCandles() {
+  if (!REMOTE) return JSON.parse(localStorage.getItem("demoCandles") || "[]");
+  const r = await fetch(`${CONFIG.supabaseUrl}/rest/v1/candles?select=*&order=created_at.asc`, { headers: headers() });
+  if (!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function insertCandle(c) {
+  if (!REMOTE) {
+    const all = JSON.parse(localStorage.getItem("demoCandles") || "[]");
+    const row = { ...c, id: Date.now(), created_at: new Date().toISOString() };
+    all.push(row); localStorage.setItem("demoCandles", JSON.stringify(all));
+    return row;
+  }
+  const r = await fetch(`${CONFIG.supabaseUrl}/rest/v1/candles`, {
+    method: "POST", headers: headers({ Prefer: "return=representation" }), body: JSON.stringify(c)
+  });
+  if (!r.ok) throw new Error(await r.text());
+  return (await r.json())[0];
+}
+
+/* ---------- pasta ---------- */
+function renderCandles() {
+  const box = $("candles");
+  box.innerHTML = "";
+  $("cake").classList.toggle("many", candles.length > 24);
+  if (!candles.length) {
+    box.innerHTML = '<span class="empty">Henüz mum yok</span>';
+    $("cakeTitle").textContent = "İlk mumu sen dik";
+    $("countEl").textContent = "";
+    return;
+  }
+  $("cakeTitle").textContent = unlocked ? "Mumlara dokun, mesajları oku" : "Pastası hazırlanıyor";
+  $("countEl").textContent = `${candles.length} mum dikildi`;
+  candles.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "candle" + (mine.includes(String(c.id)) ? " mine" : "");
+    b.style.setProperty("--c", c.color || COLORS[0]);
+    b.setAttribute("aria-label", "Mum");
+    b.innerHTML = '<span class="flame"></span>';
+    b.onclick = () => openRead(c);
+    box.appendChild(b);
+  });
+}
+async function load() {
+  try { candles = await fetchCandles(); renderCandles(); }
+  catch (e) { console.error(e); $("candles").innerHTML = '<span class="empty">Mumlar yüklenemedi 😕</span>'; }
+}
+
+/* ---------- mesaj okuma ---------- */
+function openRead(c) {
+  const body = $("readBody");
+  body.innerHTML = "";
+  const isMine = mine.includes(String(c.id));
+  if (!unlocked && !isMine) {
+    body.innerHTML = `<div class="locked"><div class="big">🔒</div>
+      <h3>Henüz erken!</h3><p>Bu mum ${fmtUnlock()} yanacak.<br>Biraz sabır 🎂</p></div>
+      <div class="row"><button class="primary" data-close>Tamam</button></div>`;
+  } else {
+    const h = document.createElement("h3"); h.textContent = isMine && !unlocked ? "Senin mumun 🕯️" : "🕯️";
+    body.appendChild(h);
+    if (c.photo) { const img = document.createElement("img"); img.className = "msg-img"; img.src = c.photo; body.appendChild(img); }
+    const t = document.createElement("div"); t.className = "msg-text"; t.textContent = c.message; body.appendChild(t);
+    const f = document.createElement("p"); f.className = "msg-from"; f.textContent = "— " + c.name; body.appendChild(f);
+    const row = document.createElement("div"); row.className = "row";
+    row.innerHTML = '<button class="primary" data-close>Kapat</button>'; body.appendChild(row);
+  }
+  openModal("readModal");
+}
+function fmtUnlock() {
+  const d = new Date(unlockTime);
+  return d.toLocaleString("tr-TR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+}
+
+/* ---------- modal ---------- */
+function openModal(id) { $(id).classList.add("open"); document.body.style.overflow = "hidden"; }
+function closeModals() { document.querySelectorAll(".modal").forEach(m => m.classList.remove("open")); document.body.style.overflow = ""; }
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-close]") || e.target.classList.contains("modal")) closeModals();
+});
+
+/* ---------- form ---------- */
+COLORS.forEach((c, i) => {
+  const b = document.createElement("button");
+  b.style.setProperty("--c", c); if (i === 0) b.className = "sel";
+  b.onclick = () => { selColor = c; document.querySelectorAll(".colors button").forEach(x => x.classList.remove("sel")); b.classList.add("sel"); };
+  $("colors").appendChild(b);
+});
+$("fMsg").oninput = e => $("chars").textContent = e.target.value.length;
+$("openForm").onclick = () => openModal("formModal");
+
+function resizeImage(file, max = 800) {
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const s = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement("canvas");
+      cv.width = Math.round(img.width * s); cv.height = Math.round(img.height * s);
+      cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url); res(cv.toDataURL("image/jpeg", 0.75));
+    };
+    img.onerror = rej; img.src = url;
+  });
+}
+$("fPhoto").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try { photoData = await resizeImage(f); $("preview").src = photoData; $("preview").style.display = "block"; }
+  catch { toast("Bu fotoğraf açılamadı"); }
+};
+
+$("submit").onclick = async () => {
+  const name = $("fName").value.trim(), message = $("fMsg").value.trim();
+  if (!name) return toast("Adını yazmayı unutma 🙂");
+  if (!message) return toast("Bir mesaj yaz 💌");
+  const btn = $("submit"); btn.disabled = true; btn.textContent = "Dikiliyor…";
+  try {
+    const row = await insertCandle({ name, message, color: selColor, photo: photoData });
+    mine.push(String(row.id)); localStorage.setItem("myCandles", JSON.stringify(mine));
+    candles.push(row); renderCandles(); closeModals();
+    $("fName").value = ""; $("fMsg").value = ""; $("chars").textContent = "0";
+    photoData = null; $("preview").style.display = "none"; $("fPhoto").value = "";
+    toast("Mumun dikildi! 🕯️");
+    burst(60);
+  } catch (e) { console.error(e); toast("Bir hata oldu, tekrar dene"); }
+  btn.disabled = false; btn.textContent = "Mumu dik";
+};
+
+function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("show"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2400); }
+
+/* ---------- geri sayım ---------- */
+function tick() {
+  const diff = unlockTime - Date.now();
+  if (unlocked || diff <= 0) {
+    if (!unlocked) { unlocked = true; burst(220); renderCandles(); }
+    $("cdCard").innerHTML = `<p class="opened">Mesajlar açıldı! 🎉</p><p class="note">Mumlara dokun, herkesin mesajını oku</p>`;
+    return false;
+  }
+  const s = Math.floor(diff / 1000);
+  $("d").textContent = Math.floor(s / 86400);
+  $("h").textContent = String(Math.floor(s % 86400 / 3600)).padStart(2, "0");
+  $("m").textContent = String(Math.floor(s % 3600 / 60)).padStart(2, "0");
+  $("s").textContent = String(s % 60).padStart(2, "0");
+  return true;
+}
+if (tick()) { const iv = setInterval(() => { if (!tick()) clearInterval(iv); }, 1000); }
+
+/* ---------- konfeti ---------- */
+const cv = $("confetti"), ctx = cv.getContext("2d");
+let parts = [], running = false;
+function size() { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
+addEventListener("resize", size); size();
+function burst(n) {
+  const cols = ["#8e1b3a","#c43c5c","#f3c6d0","#e0b04f","#ffffff","#e8829c"];
+  for (let i = 0; i < n; i++) parts.push({
+    x: innerWidth / 2 + (Math.random() - .5) * innerWidth * .6, y: innerHeight * .35,
+    vx: (Math.random() - .5) * 10, vy: -Math.random() * 11 - 3, r: Math.random() * 6 + 4,
+    rot: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[i % cols.length], life: 0
+  });
+  if (!running) { running = true; requestAnimationFrame(step); }
+}
+function step() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  parts.forEach(p => { p.vy += .28; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life++;
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillStyle = p.c; ctx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); ctx.restore(); });
+  parts = parts.filter(p => p.y < innerHeight + 30 && p.life < 400);
+  if (parts.length) requestAnimationFrame(step); else { running = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+}
+
+/* ---------- arka plan balon & kalpler ---------- */
+(function decor() {
+  const box = $("decor"), cols = ["#c43c5c","#8e1b3a","#e8829c","#d9566f"];
+  for (let i = 0; i < 9; i++) {
+    const c = cols[i % cols.length], w = 34 + Math.random() * 26;
+    const el = document.createElement("div"); el.className = "balloon";
+    el.style.left = (Math.random() * 92) + "%";
+    el.style.animationDuration = (16 + Math.random() * 14) + "s";
+    el.style.animationDelay = (-Math.random() * 25) + "s";
+    el.innerHTML = `<svg width="${w}" height="${w * 2}" viewBox="0 0 40 80"><ellipse cx="20" cy="20" rx="16" ry="19" fill="${c}"/>
+      <ellipse cx="14" cy="13" rx="4" ry="6" fill="#fff" opacity=".35"/><path d="M18 38 l2 4 l2 -4z" fill="${c}"/>
+      <path d="M20 42 q-5 9 0 18 q5 9 0 18" stroke="${c}" stroke-width="1.4" fill="none"/></svg>`;
+    box.appendChild(el);
+  }
+  for (let i = 0; i < 8; i++) {
+    const h = document.createElement("div"); h.className = "heart"; h.textContent = "♥";
+    h.style.left = (Math.random() * 94) + "%"; h.style.top = (Math.random() * 95) + "%";
+    h.style.fontSize = (16 + Math.random() * 18) + "px"; h.style.animationDelay = (-Math.random() * 5) + "s";
+    box.appendChild(h);
+  }
+})();
+
+/* ---------- başlat ---------- */
+load();
+if (REMOTE) setInterval(load, 20000); // başkalarının mumlarını 20 sn'de bir çek
+if (unlocked && !PREVIEW) setTimeout(() => burst(160), 600);
+</script>
+</body>
+</html>
